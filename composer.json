@@ -1,0 +1,14 @@
+{
+    "name": "midnight/permissions-module",
+    "require": {
+        "midnight/permissions": "^1",
+        "zendframework/zend-view": "^2",
+        "zendframework/zend-modulemanager": "^2",
+        "zendframework/zend-servicemanager": "^2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Midnight\\PermissionsModule\\": "src"
+        }
+    }
+}
