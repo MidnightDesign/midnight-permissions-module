@@ -7,6 +7,7 @@ use Midnight\PermissionsModule\Service\PermissionContainer;
 use Midnight\PermissionsModule\Service\PermissionContainerFactory;
 use Midnight\PermissionsModule\Service\PermissionServiceFactory;
 use Midnight\PermissionsModule\View\Helper\IsAllowedFactory;
+use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Zend\ModuleManager\Feature\ViewHelperProviderInterface;
 
@@ -15,7 +16,7 @@ use Zend\ModuleManager\Feature\ViewHelperProviderInterface;
  *
  * @package Midnight\PermissionsModule
  */
-class Module implements ViewHelperProviderInterface, ServiceProviderInterface
+class Module implements ViewHelperProviderInterface, ServiceProviderInterface, ConfigProviderInterface
 {
     /**
      * @return array
@@ -40,5 +41,13 @@ class Module implements ViewHelperProviderInterface, ServiceProviderInterface
                 PermissionContainer::class => PermissionContainerFactory::class,
             ],
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getConfig()
+    {
+        return include __DIR__ . '/../config/module.config.php';
     }
 }
