@@ -32,6 +32,6 @@ class IsAllowed extends AbstractHelper
      */
     public function __invoke($user = null, $permission, $resource = null)
     {
-        return $this->permissionService->isAllowed($user = null, $permission, $resource = null);
+        return $this->permissionService->isAllowed($user, $permission, $resource);
     }
 }
