@@ -20,7 +20,9 @@ class PermissionContainerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new PermissionContainer($this->getConfig($serviceLocator));
+        $permissionContainer = new PermissionContainer($this->getConfig($serviceLocator));
+        $permissionContainer->setServiceLocator($serviceLocator);
+        return $permissionContainer;
     }
 
     /**
