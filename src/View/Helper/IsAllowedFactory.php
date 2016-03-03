@@ -2,11 +2,9 @@
 
 namespace Midnight\PermissionsModule\View\Helper;
 
-use InvalidArgumentException;
+use Interop\Container\ContainerInterface;
 use Midnight\Permissions\PermissionServiceInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\View\HelperPluginManager;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Class IsAllowedFactory
@@ -16,24 +14,19 @@ use Zend\View\HelperPluginManager;
 class IsAllowedFactory implements FactoryInterface
 {
     /**
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return IsAllowed
+     * {@inheritdoc}
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        if (!$serviceLocator instanceof HelperPluginManager) {
-            throw new InvalidArgumentException;
-        }
-        $sl = $serviceLocator->getServiceLocator();
-        return new IsAllowed($this->getPermissionService($sl));
+        return new IsAllowed($this->getPermissionService($container));
     }
 
     /**
-     * @param ServiceLocatorInterface $serviceLocator
+     * @param ContainerInterface $container
      * @return PermissionServiceInterface
      */
-    private function getPermissionService(ServiceLocatorInterface $serviceLocator)
+    private function getPermissionService(ContainerInterface $container)
     {
-        return $serviceLocator->get(PermissionServiceInterface::class);
+        return $container->get(PermissionServiceInterface::class);
     }
 }
