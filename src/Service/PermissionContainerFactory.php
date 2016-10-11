@@ -2,35 +2,16 @@
 
 namespace Midnight\PermissionsModule\Service;
 
-use Zend\ServiceManager\Config;
-use Zend\ServiceManager\ConfigInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
-/**
- * Class PermissionContainerFactory
- *
- * @package Midnight\PermissionsModule\Service
- */
 class PermissionContainerFactory implements FactoryInterface
 {
     /**
-     * @param ServiceLocatorInterface $serviceLocator
      * @return PermissionContainer
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $permissionContainer = new PermissionContainer($this->getConfig($serviceLocator));
-        $permissionContainer->setServiceLocator($serviceLocator);
-        return $permissionContainer;
-    }
-
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return ConfigInterface
-     */
-    private function getConfig(ServiceLocatorInterface $serviceLocator)
-    {
-        return new Config($serviceLocator->get('Config')['permissions']);
+        return new PermissionContainer($container, $container->get('Config')['permissions']);
     }
 }
