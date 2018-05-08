@@ -1,11 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Midnight\PermissionsModule\Service;
 
-use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Psr\Container\ContainerInterface;
 
-class PermissionContainerFactory implements FactoryInterface
+class PermissionContainerFactory
 {
     /**
      * @return PermissionContainer

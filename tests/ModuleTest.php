@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace MidnightTest\PermissionsModule;
 
@@ -8,9 +8,9 @@ use Midnight\PermissionsModule\Service\PermissionContainer;
 use Midnight\PermissionsModule\Service\PermissionContainerFactory;
 use Midnight\PermissionsModule\Service\PermissionServiceFactory;
 use Midnight\PermissionsModule\View\Helper\IsAllowedFactory;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ModuleTest extends PHPUnit_Framework_TestCase
+class ModuleTest extends TestCase
 {
     /** @var Module */
     private $module;

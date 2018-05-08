@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace MidnightTest\PermissionsModule\View;
 
@@ -7,11 +7,11 @@ use Midnight\Permissions\PermissionServiceInterface;
 use Midnight\PermissionsModule\View\Helper\IsAllowed;
 use Midnight\PermissionsModule\View\Helper\IsAllowedFactory;
 use MidnightTest\PermissionsModule\TestDouble\YesPermission;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Zend\ServiceManager\ServiceManager;
 
-class IsAllowedFactoryTest extends PHPUnit_Framework_TestCase
+class IsAllowedFactoryTest extends TestCase
 {
     /** @var IsAllowedFactory */
     private $factory;
@@ -37,7 +37,7 @@ class IsAllowedFactoryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($helper->__invoke(null, YesPermission::class));
     }
 
-    private function createContainer():ContainerInterface
+    private function createContainer(): ContainerInterface
     {
         $container = new ServiceManager;
         $permissionServiceProphecy = $this->prophesize(PermissionServiceInterface::class);

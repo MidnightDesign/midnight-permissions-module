@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace MidnightTest\PermissionsModule\View;
 
@@ -7,10 +7,11 @@ use Midnight\PermissionsModule\Service\PermissionContainer;
 use Midnight\PermissionsModule\View\Helper\IsAllowed;
 use MidnightTest\PermissionsModule\TestDouble\NoPermission;
 use MidnightTest\PermissionsModule\TestDouble\YesPermission;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
+use Zend\ServiceManager\Factory\InvokableFactory;
 use Zend\ServiceManager\ServiceManager;
 
-class IsAllowedTest extends PHPUnit_Framework_TestCase
+class IsAllowedTest extends TestCase
 {
     private $container;
     /** @var PermissionService */
@@ -26,7 +27,10 @@ class IsAllowedTest extends PHPUnit_Framework_TestCase
 
         $this->container = new ServiceManager();
         $this->permissionContainer = new PermissionContainer($this->container, [
-            'invokables' => [YesPermission::class, NoPermission::class],
+            'factories' => [
+                YesPermission::class => InvokableFactory::class,
+                NoPermission::class => InvokableFactory::class,
+            ],
         ]);
         $this->permissionService = new PermissionService($this->permissionContainer);
         $this->helper = new IsAllowed($this->permissionService);

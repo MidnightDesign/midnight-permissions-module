@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace MidnightTest\PermissionsModule\Service;
 
@@ -8,10 +8,11 @@ use Midnight\PermissionsModule\Service\PermissionContainer;
 use Midnight\PermissionsModule\Service\PermissionServiceFactory;
 use MidnightTest\PermissionsModule\TestDouble\NoPermission;
 use MidnightTest\PermissionsModule\TestDouble\YesPermission;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
+use Zend\ServiceManager\Factory\InvokableFactory;
 use Zend\ServiceManager\ServiceManager;
 
-class PermissionServiceFactoryTest extends PHPUnit_Framework_TestCase
+class PermissionServiceFactoryTest extends TestCase
 {
     /** @var PermissionServiceFactory */
     private $factory;
@@ -38,13 +39,13 @@ class PermissionServiceFactoryTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($permissionService->isAllowed(null, NoPermission::class));
     }
 
-    private function createContainer():ContainerInterface
+    private function createContainer(): ContainerInterface
     {
         $container = new ServiceManager;
         $permissionContainer = new PermissionContainer($container, [
-            'invokables' => [
-                YesPermission::class,
-                NoPermission::class,
+            'factories' => [
+                YesPermission::class => InvokableFactory::class,
+                NoPermission::class => InvokableFactory::class,
             ],
         ]);
         $container->setService(PermissionContainer::class, $permissionContainer);

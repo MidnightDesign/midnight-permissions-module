@@ -6,10 +6,10 @@ use Interop\Container\ContainerInterface;
 use Midnight\PermissionsModule\Service\PermissionContainer;
 use Midnight\PermissionsModule\Service\PermissionContainerFactory;
 use MidnightTest\PermissionsModule\TestDouble\NoPermission;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\ServiceManager\ServiceManager;
 
-class PermissionContainerFactoryTest extends PHPUnit_Framework_TestCase
+class PermissionContainerFactoryTest extends TestCase
 {
     /** @var PermissionContainerFactory */
     private $factory;
