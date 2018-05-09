@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace MidnightTest\PermissionsModule\Service;
 
@@ -7,6 +7,7 @@ use Midnight\PermissionsModule\Service\PermissionContainer;
 use Midnight\PermissionsModule\Service\PermissionContainerFactory;
 use MidnightTest\PermissionsModule\TestDouble\NoPermission;
 use PHPUnit\Framework\TestCase;
+use Zend\ServiceManager\Factory\InvokableFactory;
 use Zend\ServiceManager\ServiceManager;
 
 class PermissionContainerFactoryTest extends TestCase
@@ -31,8 +32,8 @@ class PermissionContainerFactoryTest extends TestCase
     public function testConfigIsInjected()
     {
         $config = [
-            'invokables' => [
-                NoPermission::class,
+            'factories' => [
+                NoPermission::class => InvokableFactory::class,
             ],
         ];
 
@@ -41,7 +42,7 @@ class PermissionContainerFactoryTest extends TestCase
         $this->assertInstanceOf(NoPermission::class, $container->get(NoPermission::class));
     }
 
-    private function createContainer(array $permissionsConfig = []):ContainerInterface
+    private function createContainer(array $permissionsConfig = []): ContainerInterface
     {
         $serviceManager = new ServiceManager;
         $serviceManager->setService('Config', ['permissions' => $permissionsConfig]);

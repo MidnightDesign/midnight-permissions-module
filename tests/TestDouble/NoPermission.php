@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace MidnightTest\PermissionsModule\TestDouble;
 
@@ -6,7 +6,7 @@ use Midnight\Permissions\PermissionInterface;
 
 class NoPermission implements PermissionInterface
 {
-    public function isAllowed($user = null, $resource = null)
+    public function isAllowed($user = null, $resource = null): bool
     {
         return false;
     }
