@@ -1,12 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Midnight\PermissionsModule\View\Helper;
 
-use Interop\Container\ContainerInterface;
 use Midnight\Permissions\PermissionServiceInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Psr\Container\ContainerInterface;
 
-class IsAllowedFactory implements FactoryInterface
+class IsAllowedFactory
 {
     /**
      * @return IsAllowed

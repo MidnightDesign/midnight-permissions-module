@@ -4,12 +4,12 @@ namespace MidnightTest\PermissionsModule\Service;
 
 use Midnight\PermissionsModule\Service\PermissionContainer;
 use MidnightTest\PermissionsModule\TestDouble\NoPermission;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use stdClass;
 use Zend\ServiceManager\Exception\InvalidServiceException;
 use Zend\ServiceManager\ServiceManager;
 
-class PermissionContainerTest extends PHPUnit_Framework_TestCase
+class PermissionContainerTest extends TestCase
 {
     /** @var PermissionContainer */
     private $container;

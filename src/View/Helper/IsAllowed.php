@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Midnight\PermissionsModule\View\Helper;
 
@@ -15,7 +15,7 @@ class IsAllowed extends AbstractHelper
         $this->permissionService = $permissionService;
     }
 
-    public function __invoke($user = null, string $permission, $resource = null):bool
+    public function __invoke($user = null, string $permission, $resource = null): bool
     {
         return $this->permissionService->isAllowed($user, $permission, $resource);
     }
