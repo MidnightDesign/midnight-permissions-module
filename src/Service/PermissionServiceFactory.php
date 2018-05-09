@@ -1,29 +1,14 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Midnight\PermissionsModule\Service;
 
 use Midnight\Permissions\PermissionService;
-use Midnight\Permissions\PermissionServiceInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Psr\Container\ContainerInterface;
 
-class PermissionServiceFactory implements FactoryInterface
+class PermissionServiceFactory
 {
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return PermissionServiceInterface
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new PermissionService($this->getPermissionContainer($serviceLocator));
-    }
-
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return PermissionContainer
-     */
-    private function getPermissionContainer(ServiceLocatorInterface $serviceLocator)
-    {
-        return $serviceLocator->get(PermissionContainer::class);
+        return new PermissionService($container->get(PermissionContainer::class));
     }
 }

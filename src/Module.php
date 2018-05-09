@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Midnight\PermissionsModule;
 
@@ -11,17 +11,9 @@ use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Zend\ModuleManager\Feature\ViewHelperProviderInterface;
 
-/**
- * Class Module
- *
- * @package Midnight\PermissionsModule
- */
 class Module implements ViewHelperProviderInterface, ServiceProviderInterface, ConfigProviderInterface
 {
-    /**
-     * @return array
-     */
-    public function getViewHelperConfig()
+    public function getViewHelperConfig(): array
     {
         return [
             'factories' => [
@@ -30,10 +22,7 @@ class Module implements ViewHelperProviderInterface, ServiceProviderInterface, C
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function getServiceConfig()
+    public function getServiceConfig(): array
     {
         return [
             'factories' => [
@@ -43,10 +32,7 @@ class Module implements ViewHelperProviderInterface, ServiceProviderInterface, C
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function getConfig()
+    public function getConfig(): array
     {
         return include __DIR__ . '/../config/module.config.php';
     }
