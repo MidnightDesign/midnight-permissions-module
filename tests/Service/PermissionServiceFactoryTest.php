@@ -31,6 +31,10 @@ class PermissionServiceFactoryTest extends TestCase
         $this->assertInstanceOf(PermissionService::class, $permissionService);
     }
 
+    /**
+     * @throws \Interop\Container\Exception\ContainerException
+     * @throws \Interop\Container\Exception\NotFoundException
+     */
     public function testIsAllowed()
     {
         $permissionService = $this->factory->__invoke($this->createContainer(), PermissionService::class);

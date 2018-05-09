@@ -15,6 +15,7 @@ class IsAllowed extends AbstractHelper
         $this->permissionService = $permissionService;
     }
 
+    // phpcs:ignore PEAR.Functions.ValidDefaultValue
     public function __invoke($user = null, string $permission, $resource = null): bool
     {
         return $this->permissionService->isAllowed($user, $permission, $resource);

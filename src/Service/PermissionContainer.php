@@ -23,10 +23,9 @@ class PermissionContainer extends AbstractPluginManager
      * needed for ServiceManager v2 compatibility
      *
      * @throws \Interop\Container\Exception\ContainerException
-     * @codeCoverageIgnore
      */
     public function validatePlugin($plugin)
     {
-        $this->validate($plugin);
+        $this->validate($plugin); // @codeCoverageIgnore
     }
 }

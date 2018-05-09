@@ -1,9 +1,10 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace MidnightTest\PermissionsModule\Service;
 
 use Midnight\PermissionsModule\Service\PermissionContainer;
 use MidnightTest\PermissionsModule\TestDouble\NoPermission;
+use MidnightTest\PermissionsModule\TestDouble\YesPermission;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Zend\ServiceManager\Exception\InvalidServiceException;
@@ -38,5 +39,15 @@ class PermissionContainerTest extends TestCase
         $this->expectException(InvalidServiceException::class);
 
         $this->container->get(stdClass::class);
+    }
+
+    /**
+     * @throws \Interop\Container\Exception\ContainerException
+     */
+    public function testServiceManagerV2Validation()
+    {
+        $permission = new YesPermission();
+        $void = $this->container->validatePlugin($permission);
+        $this->assertNull($void);
     }
 }
