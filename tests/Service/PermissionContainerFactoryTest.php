@@ -24,9 +24,18 @@ class PermissionContainerFactoryTest extends TestCase
 
     public function testType()
     {
-        $container = $this->factory->__invoke($this->createContainer(), PermissionContainer::class);
+        $container = $this->factory->__invoke($this->createContainer());
 
         $this->assertInstanceOf(PermissionContainer::class, $container);
+    }
+
+    public function testGetInstanceFromContainer()
+    {
+        $container = $this->createContainer();
+
+        $service = $container->get(PermissionContainer::class);
+
+        $this->assertInstanceOf(PermissionContainer::class, $service);
     }
 
     public function testConfigIsInjected()
@@ -37,7 +46,7 @@ class PermissionContainerFactoryTest extends TestCase
             ],
         ];
 
-        $container = $this->factory->__invoke($this->createContainer($config), PermissionContainer::class);
+        $container = $this->factory->__invoke($this->createContainer($config));
 
         $this->assertInstanceOf(NoPermission::class, $container->get(NoPermission::class));
     }
@@ -46,6 +55,7 @@ class PermissionContainerFactoryTest extends TestCase
     {
         $serviceManager = new ServiceManager;
         $serviceManager->setService('Config', ['permissions' => $permissionsConfig]);
+        $serviceManager->setFactory(PermissionContainer::class, PermissionContainerFactory::class);
         return $serviceManager;
     }
 }
