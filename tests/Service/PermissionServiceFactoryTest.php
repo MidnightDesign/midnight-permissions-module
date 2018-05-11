@@ -26,9 +26,18 @@ class PermissionServiceFactoryTest extends TestCase
 
     public function testType()
     {
-        $permissionService = $this->factory->__invoke($this->createContainer(), PermissionService::class);
+        $permissionService = $this->factory->__invoke($this->createContainer());
 
         $this->assertInstanceOf(PermissionService::class, $permissionService);
+    }
+
+    public function testGetInstanceFromContainer()
+    {
+        $container = $this->createContainer();
+
+        $service = $container->get(PermissionService::class);
+
+        $this->assertInstanceOf(PermissionService::class, $service);
     }
 
     /**
@@ -37,7 +46,7 @@ class PermissionServiceFactoryTest extends TestCase
      */
     public function testIsAllowed()
     {
-        $permissionService = $this->factory->__invoke($this->createContainer(), PermissionService::class);
+        $permissionService = $this->factory->__invoke($this->createContainer());
 
         $this->assertTrue($permissionService->isAllowed(null, YesPermission::class));
         $this->assertFalse($permissionService->isAllowed(null, NoPermission::class));
@@ -53,6 +62,7 @@ class PermissionServiceFactoryTest extends TestCase
             ],
         ]);
         $container->setService(PermissionContainer::class, $permissionContainer);
+        $container->setFactory(PermissionService::class, PermissionServiceFactory::class);
         return $container;
     }
 }

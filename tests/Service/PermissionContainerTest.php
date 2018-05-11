@@ -8,6 +8,7 @@ use MidnightTest\PermissionsModule\TestDouble\YesPermission;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Zend\ServiceManager\Exception\InvalidServiceException;
+use Zend\ServiceManager\Factory\InvokableFactory;
 use Zend\ServiceManager\ServiceManager;
 
 class PermissionContainerTest extends TestCase
@@ -20,9 +21,9 @@ class PermissionContainerTest extends TestCase
         parent::setUp();
 
         $this->container = new PermissionContainer(new ServiceManager(), [
-            'invokables' => [
-                NoPermission::class,
-                stdClass::class,
+            'factories' => [
+                NoPermission::class => InvokableFactory::class,
+                stdClass::class => InvokableFactory::class,
             ],
         ]);
     }
@@ -48,6 +49,16 @@ class PermissionContainerTest extends TestCase
     {
         $permission = new YesPermission();
         $void = $this->container->validatePlugin($permission);
+        $this->assertNull($void);
+    }
+
+    /**
+     * @throws \Interop\Container\Exception\ContainerException
+     */
+    public function testServiceManagerV3Validation()
+    {
+        $permission = new YesPermission();
+        $void = $this->container->validate($permission);
         $this->assertNull($void);
     }
 }

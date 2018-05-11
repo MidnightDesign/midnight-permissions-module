@@ -42,7 +42,7 @@
         "check-deps": "vendor/bin/composer-require-checker",
         "cs-check": "vendor/bin/phpcs",
         "cs-fix": "vendor/bin/phpcbf",
-        "infection": "vendor/bin/infection --min-msi=100 --min-covered-msi=100 --log-verbosity=2",
+        "infection": "vendor/bin/infection --min-msi=90 --min-covered-msi=90 --log-verbosity=2",
         "phpstan": "vendor/bin/phpstan analyse src/ --level 7 -c phpstan.neon",
         "phpunit": "vendor/bin/phpunit",
         "check": [
