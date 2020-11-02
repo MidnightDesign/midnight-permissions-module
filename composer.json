@@ -8,9 +8,7 @@
         "container-interop/container-interop": "^1.2",
         "midnight/permissions": "^1.0",
         "psr/container": "^1.0",
-        "zendframework/zend-modulemanager": "^2.0",
-        "zendframework/zend-servicemanager": "^2.0 || ^3.3",
-        "zendframework/zend-view": "^2.0"
+        "laminas/laminas-servicemanager": "^3.3"
     },
     "require-dev": {
         "infection/infection": "^0.8",

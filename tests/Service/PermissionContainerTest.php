@@ -2,14 +2,15 @@
 
 namespace MidnightTest\PermissionsModule\Service;
 
+use Interop\Container\Exception\ContainerException;
+use Laminas\ServiceManager\Exception\InvalidServiceException;
+use Laminas\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\ServiceManager;
 use Midnight\PermissionsModule\Service\PermissionContainer;
 use MidnightTest\PermissionsModule\TestDouble\NoPermission;
 use MidnightTest\PermissionsModule\TestDouble\YesPermission;
 use PHPUnit\Framework\TestCase;
 use stdClass;
-use Zend\ServiceManager\Exception\InvalidServiceException;
-use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\ServiceManager\ServiceManager;
 
 class PermissionContainerTest extends TestCase
 {
@@ -43,7 +44,7 @@ class PermissionContainerTest extends TestCase
     }
 
     /**
-     * @throws \Interop\Container\Exception\ContainerException
+     * @throws ContainerException
      */
     public function testServiceManagerV2Validation()
     {
@@ -53,7 +54,7 @@ class PermissionContainerTest extends TestCase
     }
 
     /**
-     * @throws \Interop\Container\Exception\ContainerException
+     * @throws ContainerException
      */
     public function testServiceManagerV3Validation()
     {

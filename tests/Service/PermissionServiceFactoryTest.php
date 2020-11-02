@@ -3,14 +3,16 @@
 namespace MidnightTest\PermissionsModule\Service;
 
 use Interop\Container\ContainerInterface;
+use Interop\Container\Exception\ContainerException;
+use Interop\Container\Exception\NotFoundException;
+use Laminas\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\ServiceManager;
 use Midnight\Permissions\PermissionService;
 use Midnight\PermissionsModule\Service\PermissionContainer;
 use Midnight\PermissionsModule\Service\PermissionServiceFactory;
 use MidnightTest\PermissionsModule\TestDouble\NoPermission;
 use MidnightTest\PermissionsModule\TestDouble\YesPermission;
 use PHPUnit\Framework\TestCase;
-use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\ServiceManager\ServiceManager;
 
 class PermissionServiceFactoryTest extends TestCase
 {
@@ -21,7 +23,7 @@ class PermissionServiceFactoryTest extends TestCase
     {
         parent::setUp();
 
-        $this->factory = new PermissionServiceFactory;
+        $this->factory = new PermissionServiceFactory();
     }
 
     public function testType()
@@ -41,8 +43,8 @@ class PermissionServiceFactoryTest extends TestCase
     }
 
     /**
-     * @throws \Interop\Container\Exception\ContainerException
-     * @throws \Interop\Container\Exception\NotFoundException
+     * @throws ContainerException
+     * @throws NotFoundException
      */
     public function testIsAllowed()
     {
@@ -54,13 +56,15 @@ class PermissionServiceFactoryTest extends TestCase
 
     private function createContainer(): ContainerInterface
     {
-        $container = new ServiceManager;
-        $permissionContainer = new PermissionContainer($container, [
+        $container = new ServiceManager();
+        $permissionContainer = new PermissionContainer(
+            $container, [
             'factories' => [
                 YesPermission::class => InvokableFactory::class,
                 NoPermission::class => InvokableFactory::class,
             ],
-        ]);
+        ]
+        );
         $container->setService(PermissionContainer::class, $permissionContainer);
         $container->setFactory(PermissionService::class, PermissionServiceFactory::class);
         return $container;

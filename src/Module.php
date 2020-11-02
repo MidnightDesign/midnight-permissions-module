@@ -2,16 +2,16 @@
 
 namespace Midnight\PermissionsModule;
 
+use Laminas\ModuleManager\Feature\ConfigProviderInterface;
+use Laminas\ModuleManager\Feature\ServiceProviderInterface;
+use Laminas\ModuleManager\Feature\ViewHelperProviderInterface;
 use Midnight\Permissions\PermissionServiceInterface;
 use Midnight\PermissionsModule\Service\PermissionContainer;
 use Midnight\PermissionsModule\Service\PermissionContainerFactory;
 use Midnight\PermissionsModule\Service\PermissionServiceFactory;
 use Midnight\PermissionsModule\View\Helper\IsAllowedFactory;
-use Zend\ModuleManager\Feature\ConfigProviderInterface;
-use Zend\ModuleManager\Feature\ServiceProviderInterface;
-use Zend\ModuleManager\Feature\ViewHelperProviderInterface;
 
-class Module implements ViewHelperProviderInterface, ServiceProviderInterface, ConfigProviderInterface
+class Module
 {
     public function getViewHelperConfig(): array
     {

@@ -2,14 +2,14 @@
 
 namespace MidnightTest\PermissionsModule\View;
 
+use Laminas\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\ServiceManager;
 use Midnight\Permissions\PermissionService;
 use Midnight\PermissionsModule\Service\PermissionContainer;
 use Midnight\PermissionsModule\View\Helper\IsAllowed;
 use MidnightTest\PermissionsModule\TestDouble\NoPermission;
 use MidnightTest\PermissionsModule\TestDouble\YesPermission;
 use PHPUnit\Framework\TestCase;
-use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\ServiceManager\ServiceManager;
 
 class IsAllowedTest extends TestCase
 {

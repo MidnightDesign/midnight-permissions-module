@@ -2,10 +2,10 @@
 
 namespace Midnight\PermissionsModule\View\Helper;
 
+use Laminas\View\Helper\AbstractHelper;
 use Midnight\Permissions\PermissionServiceInterface;
-use Zend\View\Helper\AbstractHelper;
 
-class IsAllowed extends AbstractHelper
+class IsAllowed
 {
     /** @var PermissionServiceInterface */
     private $permissionService;

@@ -2,14 +2,14 @@
 
 namespace MidnightTest\PermissionsModule\View;
 
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\HelperPluginManager;
 use Midnight\Permissions\PermissionServiceInterface;
 use Midnight\PermissionsModule\View\Helper\IsAllowed;
 use Midnight\PermissionsModule\View\Helper\IsAllowedFactory;
 use MidnightTest\PermissionsModule\TestDouble\YesPermission;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
-use Zend\ServiceManager\ServiceManager;
-use Zend\View\HelperPluginManager;
 
 class IsAllowedFactoryTest extends TestCase
 {
@@ -20,7 +20,7 @@ class IsAllowedFactoryTest extends TestCase
     {
         parent::setUp();
 
-        $this->factory = new IsAllowedFactory;
+        $this->factory = new IsAllowedFactory();
     }
 
     public function testGetInstanceFromContainer()
@@ -58,7 +58,7 @@ class IsAllowedFactoryTest extends TestCase
 
     private function createContainer(): ServiceManager
     {
-        $container = new ServiceManager;
+        $container = new ServiceManager();
         $permissionServiceProphecy = $this->prophesize(PermissionServiceInterface::class);
         $permissionServiceProphecy
             ->isAllowed(Argument::any(), Argument::any(), Argument::any())

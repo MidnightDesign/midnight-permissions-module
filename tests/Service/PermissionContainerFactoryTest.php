@@ -3,12 +3,12 @@
 namespace MidnightTest\PermissionsModule\Service;
 
 use Interop\Container\ContainerInterface;
+use Laminas\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\ServiceManager;
 use Midnight\PermissionsModule\Service\PermissionContainer;
 use Midnight\PermissionsModule\Service\PermissionContainerFactory;
 use MidnightTest\PermissionsModule\TestDouble\NoPermission;
 use PHPUnit\Framework\TestCase;
-use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\ServiceManager\ServiceManager;
 
 class PermissionContainerFactoryTest extends TestCase
 {
@@ -19,7 +19,7 @@ class PermissionContainerFactoryTest extends TestCase
     {
         parent::setUp();
 
-        $this->factory = new PermissionContainerFactory;
+        $this->factory = new PermissionContainerFactory();
     }
 
     public function testType()
@@ -53,7 +53,7 @@ class PermissionContainerFactoryTest extends TestCase
 
     private function createContainer(array $permissionsConfig = []): ContainerInterface
     {
-        $serviceManager = new ServiceManager;
+        $serviceManager = new ServiceManager();
         $serviceManager->setService('Config', ['permissions' => $permissionsConfig]);
         $serviceManager->setFactory(PermissionContainer::class, PermissionContainerFactory::class);
         return $serviceManager;
