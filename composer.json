@@ -1,7 +1,7 @@
 {
     "name": "midnight/permissions-module",
     "type": "library",
-    "description": "Zend Framework module for midnight/permissions package",
+    "description": "Laminas module for midnight/permissions package",
     "license": "MIT",
     "require": {
         "php": "^7.4",
