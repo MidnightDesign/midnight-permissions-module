@@ -26,12 +26,13 @@ class IsAllowedTest extends TestCase
 
         $this->container = new ServiceManager();
         $this->permissionContainer = new PermissionContainer(
-            $this->container, [
-                                'factories' => [
-                                    YesPermission::class => InvokableFactory::class,
-                                    NoPermission::class => InvokableFactory::class,
-                                ],
-                            ]
+            $this->container,
+            [
+                'factories' => [
+                    YesPermission::class => InvokableFactory::class,
+                    NoPermission::class => InvokableFactory::class,
+                ],
+            ]
         );
         $this->permissionService = new PermissionService($this->permissionContainer);
         $this->helper = new IsAllowed($this->permissionService);
