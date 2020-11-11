@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MidnightTest\PermissionsModule\Service;
 
@@ -12,33 +14,32 @@ use PHPUnit\Framework\TestCase;
 
 class PermissionContainerFactoryTest extends TestCase
 {
-    /** @var PermissionContainerFactory */
-    private $factory;
+    private PermissionContainerFactory $factory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
         $this->factory = new PermissionContainerFactory();
     }
 
-    public function testType()
+    public function testType(): void
     {
         $container = $this->factory->__invoke($this->createContainer());
 
-        $this->assertInstanceOf(PermissionContainer::class, $container);
+        self::assertInstanceOf(PermissionContainer::class, $container);
     }
 
-    public function testGetInstanceFromContainer()
+    public function testGetInstanceFromContainer(): void
     {
         $container = $this->createContainer();
 
         $service = $container->get(PermissionContainer::class);
 
-        $this->assertInstanceOf(PermissionContainer::class, $service);
+        self::assertInstanceOf(PermissionContainer::class, $service);
     }
 
-    public function testConfigIsInjected()
+    public function testConfigIsInjected(): void
     {
         $config = [
             'factories' => [
@@ -48,9 +49,12 @@ class PermissionContainerFactoryTest extends TestCase
 
         $container = $this->factory->__invoke($this->createContainer($config));
 
-        $this->assertInstanceOf(NoPermission::class, $container->get(NoPermission::class));
+        self::assertInstanceOf(NoPermission::class, $container->get(NoPermission::class));
     }
 
+    /**
+     * @param array<string, mixed> $permissionsConfig
+     */
     private function createContainer(array $permissionsConfig = []): ContainerInterface
     {
         $serviceManager = new ServiceManager();

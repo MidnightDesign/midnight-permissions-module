@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MidnightTest\PermissionsModule\View;
 
@@ -13,36 +15,35 @@ use PHPUnit\Framework\TestCase;
 
 class IsAllowedTest extends TestCase
 {
-    private $container;
-    /** @var PermissionService */
-    private $permissionService;
-    /** @var PermissionContainer */
-    private $permissionContainer;
-    /** @var IsAllowed */
-    private $helper;
+    private ServiceManager $container;
+    private PermissionService $permissionService;
+    private PermissionContainer $permissionContainer;
+    private IsAllowed $helper;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
         $this->container = new ServiceManager();
-        $this->permissionContainer = new PermissionContainer($this->container, [
-            'factories' => [
-                YesPermission::class => InvokableFactory::class,
-                NoPermission::class => InvokableFactory::class,
-            ],
-        ]);
+        $this->permissionContainer = new PermissionContainer(
+            $this->container, [
+                                'factories' => [
+                                    YesPermission::class => InvokableFactory::class,
+                                    NoPermission::class => InvokableFactory::class,
+                                ],
+                            ]
+        );
         $this->permissionService = new PermissionService($this->permissionContainer);
         $this->helper = new IsAllowed($this->permissionService);
     }
 
-    public function testIsAllowed()
+    public function testIsAllowed(): void
     {
-        $this->assertTrue($this->helper->__invoke(null, YesPermission::class));
+        self::assertTrue($this->helper->__invoke(null, YesPermission::class));
     }
 
-    public function testIsNotAllowed()
+    public function testIsNotAllowed(): void
     {
-        $this->assertFalse($this->helper->__invoke(null, NoPermission::class));
+        self::assertFalse($this->helper->__invoke(null, NoPermission::class));
     }
 }

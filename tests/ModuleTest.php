@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MidnightTest\PermissionsModule;
 
@@ -12,26 +14,25 @@ use PHPUnit\Framework\TestCase;
 
 class ModuleTest extends TestCase
 {
-    /** @var Module */
-    private $module;
+    private Module $module;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->module = new Module;
+        $this->module = new Module();
     }
 
-    public function testViewHelperConfig()
+    public function testViewHelperConfig(): void
     {
         $expected = [
             'factories' => ['isAllowed' => IsAllowedFactory::class],
         ];
 
-        $this->assertEquals($expected, $this->module->getViewHelperConfig());
+        self::assertEquals($expected, $this->module->getViewHelperConfig());
     }
 
-    public function testServiceConfig()
+    public function testServiceConfig(): void
     {
         $expected = [
             'factories' => [
@@ -40,15 +41,15 @@ class ModuleTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($expected, $this->module->getServiceConfig());
+        self::assertEquals($expected, $this->module->getServiceConfig());
     }
 
-    public function testConfig()
+    public function testConfig(): void
     {
         $expected = [
             'permissions' => [],
         ];
 
-        $this->assertEquals($expected, $this->module->getConfig());
+        self::assertEquals($expected, $this->module->getConfig());
     }
 }

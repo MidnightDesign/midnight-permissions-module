@@ -1,77 +1,57 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MidnightTest\PermissionsModule\View;
 
 use Laminas\ServiceManager\ServiceManager;
-use Laminas\View\HelperPluginManager;
 use Midnight\Permissions\PermissionServiceInterface;
+use Midnight\Permissions\PermissionServiceStub;
 use Midnight\PermissionsModule\View\Helper\IsAllowed;
 use Midnight\PermissionsModule\View\Helper\IsAllowedFactory;
 use MidnightTest\PermissionsModule\TestDouble\YesPermission;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
 
 class IsAllowedFactoryTest extends TestCase
 {
-    /** @var IsAllowedFactory */
-    private $factory;
+    private IsAllowedFactory $factory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
         $this->factory = new IsAllowedFactory();
     }
 
-    public function testGetInstanceFromContainer()
+    public function testGetInstanceFromContainer(): void
     {
         $container = $this->createContainer();
         $container->setFactory(IsAllowed::class, IsAllowedFactory::class);
 
         $service = $container->get(IsAllowed::class);
 
-        $this->assertInstanceOf(IsAllowed::class, $service);
+        self::assertInstanceOf(IsAllowed::class, $service);
     }
 
-    public function testInstanceCanBePulledFromHelperPluginManager()
-    {
-        $helperManager = $this->createHelperPluginManager();
-
-        $plugin = $helperManager->get(IsAllowed::class);
-
-        $this->assertInstanceOf(IsAllowed::class, $plugin);
-    }
-
-    public function testType()
+    public function testType(): void
     {
         $helper = $this->factory->__invoke($this->createContainer());
 
-        $this->assertInstanceOf(IsAllowed::class, $helper);
+        self::assertInstanceOf(IsAllowed::class, $helper);
     }
 
-    public function testPermissionServiceIsInjected()
+    public function testPermissionServiceIsInjected(): void
     {
         $helper = $this->factory->__invoke($this->createContainer());
 
-        $this->assertTrue($helper->__invoke(null, YesPermission::class));
+        self::assertTrue($helper->__invoke(null, YesPermission::class));
     }
 
     private function createContainer(): ServiceManager
     {
         $container = new ServiceManager();
-        $permissionServiceProphecy = $this->prophesize(PermissionServiceInterface::class);
-        $permissionServiceProphecy
-            ->isAllowed(Argument::any(), Argument::any(), Argument::any())
-            ->willReturn(true);
-        $container->setService(PermissionServiceInterface::class, $permissionServiceProphecy->reveal());
+        $service = new PermissionServiceStub();
+        $container->setService(PermissionServiceInterface::class, $service);
         return $container;
-    }
-
-    private function createHelperPluginManager(): HelperPluginManager
-    {
-        $sm = $this->createContainer();
-        $pluginManager = new HelperPluginManager($sm);
-        $pluginManager->setFactory(IsAllowed::class, IsAllowedFactory::class);
-        return $pluginManager;
     }
 }

@@ -1,10 +1,9 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Midnight\PermissionsModule;
 
-use Laminas\ModuleManager\Feature\ConfigProviderInterface;
-use Laminas\ModuleManager\Feature\ServiceProviderInterface;
-use Laminas\ModuleManager\Feature\ViewHelperProviderInterface;
 use Midnight\Permissions\PermissionServiceInterface;
 use Midnight\PermissionsModule\Service\PermissionContainer;
 use Midnight\PermissionsModule\Service\PermissionContainerFactory;
@@ -13,6 +12,9 @@ use Midnight\PermissionsModule\View\Helper\IsAllowedFactory;
 
 class Module
 {
+    /**
+     * @return array<string, array<string, string>>
+     */
     public function getViewHelperConfig(): array
     {
         return [
@@ -22,6 +24,9 @@ class Module
         ];
     }
 
+    /**
+     * @return array<string, array<string, string>>
+     */
     public function getServiceConfig(): array
     {
         return [
@@ -32,6 +37,9 @@ class Module
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getConfig(): array
     {
         return include __DIR__ . '/../config/module.config.php';

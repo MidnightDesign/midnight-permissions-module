@@ -1,10 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MidnightTest\PermissionsModule\Service;
 
 use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\ContainerException;
-use Interop\Container\Exception\NotFoundException;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\ServiceManager\ServiceManager;
 use Midnight\Permissions\PermissionService;
@@ -16,54 +16,50 @@ use PHPUnit\Framework\TestCase;
 
 class PermissionServiceFactoryTest extends TestCase
 {
-    /** @var PermissionServiceFactory */
-    private $factory;
+    private PermissionServiceFactory $factory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
         $this->factory = new PermissionServiceFactory();
     }
 
-    public function testType()
+    public function testType(): void
     {
         $permissionService = $this->factory->__invoke($this->createContainer());
 
-        $this->assertInstanceOf(PermissionService::class, $permissionService);
+        self::assertInstanceOf(PermissionService::class, $permissionService);
     }
 
-    public function testGetInstanceFromContainer()
+    public function testGetInstanceFromContainer(): void
     {
         $container = $this->createContainer();
 
         $service = $container->get(PermissionService::class);
 
-        $this->assertInstanceOf(PermissionService::class, $service);
+        self::assertInstanceOf(PermissionService::class, $service);
     }
 
-    /**
-     * @throws ContainerException
-     * @throws NotFoundException
-     */
-    public function testIsAllowed()
+    public function testIsAllowed(): void
     {
         $permissionService = $this->factory->__invoke($this->createContainer());
 
-        $this->assertTrue($permissionService->isAllowed(null, YesPermission::class));
-        $this->assertFalse($permissionService->isAllowed(null, NoPermission::class));
+        self::assertTrue($permissionService->isAllowed(null, YesPermission::class));
+        self::assertFalse($permissionService->isAllowed(null, NoPermission::class));
     }
 
     private function createContainer(): ContainerInterface
     {
         $container = new ServiceManager();
         $permissionContainer = new PermissionContainer(
-            $container, [
-            'factories' => [
-                YesPermission::class => InvokableFactory::class,
-                NoPermission::class => InvokableFactory::class,
-            ],
-        ]
+            $container,
+            [
+                'factories' => [
+                    YesPermission::class => InvokableFactory::class,
+                    NoPermission::class => InvokableFactory::class,
+                ],
+            ]
         );
         $container->setService(PermissionContainer::class, $permissionContainer);
         $container->setFactory(PermissionService::class, PermissionServiceFactory::class);
