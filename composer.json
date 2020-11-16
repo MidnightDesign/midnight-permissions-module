@@ -1,24 +1,31 @@
 {
     "name": "midnight/permissions-module",
-    "license": "MIT",
     "type": "library",
-    "description": "Zend Framework module for midnight/permissions package",
+    "description": "Laminas module for midnight/permissions package",
+    "license": "MIT",
     "require": {
-        "php": "^7.0",
+        "php": "^7.4",
         "container-interop/container-interop": "^1.2",
+        "laminas/laminas-servicemanager": "^3.3",
         "midnight/permissions": "^1.0",
-        "psr/container": "^1.0",
-        "zendframework/zend-modulemanager": "^2.0",
-        "zendframework/zend-servicemanager": "^2.0 || ^3.3",
-        "zendframework/zend-view": "^2.0"
+        "psr/container": "^1.0"
     },
     "require-dev": {
-        "infection/infection": "^0.8",
-        "maglnet/composer-require-checker": "^0.2",
-        "phpstan/phpstan": "^0.9",
-        "phpstan/phpstan-strict-rules": "^0.9",
-        "phpunit/phpunit": "^7.1",
-        "squizlabs/php_codesniffer": "^3.2"
+        "eventjet/coding-standard": "^3.2",
+        "infection/infection": "^0.20.0",
+        "maglnet/composer-require-checker": "^2.1",
+        "phpstan/extension-installer": "^1.0",
+        "phpstan/phpstan": "^0.12.32",
+        "phpstan/phpstan-strict-rules": "^0.12.2",
+        "phpunit/phpunit": "^9.3"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laminas": {
+            "module": "Midnight\\PermissionsModule"
+        }
     },
     "autoload": {
         "psr-4": {
@@ -30,27 +37,20 @@
             "MidnightTest\\PermissionsModule\\": "tests"
         }
     },
-    "extra": {
-        "zf": {
-            "module": "Midnight\\PermissionsModule"
-        }
-    },
-    "config": {
-        "sort-packages": true
-    },
+    "minimum-stability": "stable",
     "scripts": {
+        "check": [
+            "@check-deps",
+            "@cs-check",
+            "@phpstan",
+            "@phpunit",
+            "@infection"
+        ],
         "check-deps": "vendor/bin/composer-require-checker",
         "cs-check": "vendor/bin/phpcs",
         "cs-fix": "vendor/bin/phpcbf",
-        "infection": "vendor/bin/infection --min-msi=90 --min-covered-msi=90 --log-verbosity=2",
-        "phpstan": "vendor/bin/phpstan analyse src/ --level 7 -c phpstan.neon",
-        "phpunit": "vendor/bin/phpunit",
-        "check": [
-            "@check-deps",
-            "@infection",
-            "@phpstan",
-            "@phpunit",
-            "@cs-check"
-        ]
+        "infection": "vendor/bin/infection --threads=4",
+        "phpstan": "vendor/bin/phpstan analyse",
+        "phpunit": "vendor/bin/phpunit"
     }
 }

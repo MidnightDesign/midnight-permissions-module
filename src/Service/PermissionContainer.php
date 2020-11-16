@@ -1,31 +1,35 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Midnight\PermissionsModule\Service;
 
+use Laminas\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Midnight\Permissions\PermissionInterface;
-use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\Exception\InvalidServiceException;
+
+use function get_class;
+use function gettype;
+use function is_object;
+use function sprintf;
 
 class PermissionContainer extends AbstractPluginManager
 {
-    public function validate($plugin)
+    /**
+     * @param object $plugin
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
+     */
+    public function validate($plugin): void
     {
         if (!$plugin instanceof PermissionInterface) {
-            throw new InvalidServiceException(sprintf(
-                'Invalid permission. Expected an instance of %s, got %s.',
-                PermissionInterface::class,
-                is_object($plugin) ? get_class($plugin) : gettype($plugin)
-            ));
+            throw new InvalidServiceException(
+                sprintf(
+                    'Invalid permission. Expected an instance of %s, got %s.',
+                    PermissionInterface::class,
+                    // @phpstan-ignore-next-line
+                    is_object($plugin) ? get_class($plugin) : gettype($plugin)
+                )
+            );
         }
-    }
-
-    /**
-     * needed for ServiceManager v2 compatibility
-     *
-     * @throws \Interop\Container\Exception\ContainerException
-     */
-    public function validatePlugin($plugin)
-    {
-        $this->validate($plugin); // @codeCoverageIgnore
     }
 }

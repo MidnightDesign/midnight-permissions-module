@@ -1,64 +1,56 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MidnightTest\PermissionsModule\Service;
 
+use Laminas\ServiceManager\Exception\InvalidServiceException;
+use Laminas\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\ServiceManager;
 use Midnight\PermissionsModule\Service\PermissionContainer;
 use MidnightTest\PermissionsModule\TestDouble\NoPermission;
 use MidnightTest\PermissionsModule\TestDouble\YesPermission;
 use PHPUnit\Framework\TestCase;
 use stdClass;
-use Zend\ServiceManager\Exception\InvalidServiceException;
-use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\ServiceManager\ServiceManager;
 
 class PermissionContainerTest extends TestCase
 {
-    /** @var PermissionContainer */
-    private $container;
+    private PermissionContainer $container;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->container = new PermissionContainer(new ServiceManager(), [
-            'factories' => [
-                NoPermission::class => InvokableFactory::class,
-                stdClass::class => InvokableFactory::class,
-            ],
-        ]);
+        $this->container = new PermissionContainer(
+            new ServiceManager(),
+            [
+                'factories' => [
+                    NoPermission::class => InvokableFactory::class,
+                    stdClass::class => InvokableFactory::class,
+                ],
+            ]
+        );
     }
 
-    public function testGet()
+    public function testGet(): void
     {
         $permission = $this->container->get(NoPermission::class);
 
-        $this->assertInstanceOf(NoPermission::class, $permission);
+        self::assertInstanceOf(NoPermission::class, $permission);
     }
 
-    public function testInvalidPermission()
+    public function testInvalidPermission(): void
     {
         $this->expectException(InvalidServiceException::class);
 
         $this->container->get(stdClass::class);
     }
 
-    /**
-     * @throws \Interop\Container\Exception\ContainerException
-     */
-    public function testServiceManagerV2Validation()
+    public function testServiceManagerValidation(): void
     {
         $permission = new YesPermission();
-        $void = $this->container->validatePlugin($permission);
-        $this->assertNull($void);
-    }
-
-    /**
-     * @throws \Interop\Container\Exception\ContainerException
-     */
-    public function testServiceManagerV3Validation()
-    {
-        $permission = new YesPermission();
-        $void = $this->container->validate($permission);
-        $this->assertNull($void);
+        $this->container->validate($permission);
+        // smoke test
+        self::assertSame(1 + 1, 2);
     }
 }
