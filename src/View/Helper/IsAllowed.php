@@ -18,9 +18,8 @@ class IsAllowed
     /**
      * @param mixed|null $user
      * @param mixed|null $resource
-     * @phpcs:disable PEAR.Functions.ValidDefaultValue.NotAtEnd
      */
-    public function __invoke($user = null, string $permission, $resource = null): bool
+    public function __invoke($user, string $permission, $resource = null): bool
     {
         return $this->permissionService->isAllowed($user, $permission, $resource);
     }

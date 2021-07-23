@@ -58,7 +58,7 @@ class PermissionContainerFactoryTest extends TestCase
     private function createContainer(array $permissionsConfig = []): ContainerInterface
     {
         $serviceManager = new ServiceManager();
-        $serviceManager->setService('Config', ['permissions' => $permissionsConfig]);
+        $serviceManager->setService('config', ['permissions' => $permissionsConfig]);
         $serviceManager->setFactory(PermissionContainer::class, PermissionContainerFactory::class);
         return $serviceManager;
     }
