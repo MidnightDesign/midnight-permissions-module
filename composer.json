@@ -8,14 +8,15 @@
         "container-interop/container-interop": "^1.2",
         "laminas/laminas-servicemanager": "^3.3",
         "midnight/permissions": "^1.1 || ^2.0",
-        "psr/container": "^1.1 || ^2.0"
+        "psr/container": "^1.1 || ^2.0",
+        "thecodingmachine/safe": "^1.2"
     },
     "require-dev": {
         "eventjet/coding-standard": "^3.2",
         "infection/infection": "^0.23.0",
         "maglnet/composer-require-checker": "^3.2",
         "phpstan/extension-installer": "^1.0",
-        "phpstan/phpstan": "^0.12.32",
+        "phpstan/phpstan": "^0.12.34",
         "phpstan/phpstan-strict-rules": "^0.12.2",
         "phpunit/phpunit": "^9.4"
     },
