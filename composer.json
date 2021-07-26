@@ -12,7 +12,7 @@
         "thecodingmachine/safe": "^1.2"
     },
     "require-dev": {
-        "eventjet/coding-standard": "^3.2",
+        "eventjet/coding-standard": "^3.7",
         "infection/infection": "^0.23.0",
         "maglnet/composer-require-checker": "^3.2",
         "ocramius/package-versions": "^2.1",
