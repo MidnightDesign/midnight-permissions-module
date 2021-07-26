@@ -9,8 +9,8 @@ use Midnight\Permissions\PermissionInterface;
 class NoPermission implements PermissionInterface
 {
     /**
-     * @param mixed|null $user
-     * @param mixed|null $resource
+     * @phpstan-param mixed|null $user
+     * @phpstan-param mixed|null $resource
      */
     public function isAllowed($user = null, $resource = null): bool
     {

@@ -16,8 +16,8 @@ class IsAllowed
     }
 
     /**
-     * @param mixed|null $user
-     * @param mixed|null $resource
+     * @phpstan-param mixed|null $user
+     * @phpstan-param mixed|null $resource
      */
     public function __invoke($user, string $permission, $resource = null): bool
     {
