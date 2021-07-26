@@ -7,7 +7,7 @@
         "php": "^7.4 || ^8.0",
         "container-interop/container-interop": "^1.2",
         "laminas/laminas-servicemanager": "^3.3",
-        "midnight/permissions": "^1.0 || ^2.0",
+        "midnight/permissions": "^1.1 || ^2.0",
         "psr/container": "^1.1 || ^2.0"
     },
     "require-dev": {
@@ -17,7 +17,7 @@
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.32",
         "phpstan/phpstan-strict-rules": "^0.12.2",
-        "phpunit/phpunit": "^9.3"
+        "phpunit/phpunit": "^9.4"
     },
     "config": {
         "sort-packages": true
