@@ -17,7 +17,6 @@ class PermissionContainer extends AbstractPluginManager
 {
     /**
      * @param mixed $plugin
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     public function validate($plugin): void
     {
