@@ -1,34 +1,27 @@
 {
     "name": "midnight/permissions-module",
-    "type": "library",
     "description": "Laminas module for midnight/permissions package",
     "license": "MIT",
+    "type": "library",
     "require": {
         "php": "^7.4 || ^8.0",
         "container-interop/container-interop": "^1.2",
         "laminas/laminas-servicemanager": "^3.3",
         "midnight/permissions": "^1.1 || ^2.0",
         "psr/container": "^1.1 || ^2.0",
-        "thecodingmachine/safe": "^1.2"
+        "thecodingmachine/safe": "^1.2 || ^2.0"
     },
     "require-dev": {
-        "eventjet/coding-standard": "^3.7",
-        "infection/infection": "^0.23.0",
-        "maglnet/composer-require-checker": "^3.2",
-        "ocramius/package-versions": "^2.1",
-        "phpstan/extension-installer": "^1.0",
-        "phpstan/phpstan": "^0.12.34",
-        "phpstan/phpstan-strict-rules": "^0.12.2",
-        "phpunit/phpunit": "^9.4"
+        "eventjet/coding-standard": "^3.9",
+        "infection/infection": "^0.26.6",
+        "maglnet/composer-require-checker": "^3.8 || ^4.0",
+        "ocramius/package-versions": "^2.1.1",
+        "phpstan/extension-installer": "^1.2",
+        "phpstan/phpstan": "^1.8.10",
+        "phpstan/phpstan-strict-rules": "^1.4.4",
+        "phpunit/phpunit": "^9.5.25"
     },
-    "config": {
-        "sort-packages": true
-    },
-    "extra": {
-        "laminas": {
-            "module": "Midnight\\PermissionsModule"
-        }
-    },
+    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "Midnight\\PermissionsModule\\": "src"
@@ -39,7 +32,19 @@
             "MidnightTest\\PermissionsModule\\": "tests"
         }
     },
-    "minimum-stability": "stable",
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "infection/extension-installer": true,
+            "phpstan/extension-installer": true
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "laminas": {
+            "module": "Midnight\\PermissionsModule"
+        }
+    },
     "scripts": {
         "check": [
             "@check-deps",

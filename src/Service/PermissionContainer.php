@@ -16,8 +16,7 @@ use function sprintf;
 class PermissionContainer extends AbstractPluginManager
 {
     /**
-     * @param object $plugin
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
+     * @param mixed $plugin
      */
     public function validate($plugin): void
     {
@@ -26,7 +25,6 @@ class PermissionContainer extends AbstractPluginManager
                 sprintf(
                     'Invalid permission. Expected an instance of %s, got %s.',
                     PermissionInterface::class,
-                    // @phpstan-ignore-next-line
                     is_object($plugin) ? get_class($plugin) : gettype($plugin)
                 )
             );
