@@ -7,7 +7,7 @@ jobs:
 
     strategy:
       matrix:
-        php: ["7.4", "8.0"]
+        php: ["7.4", "8.0", "8.1"]
         composer_args: ["--prefer-lowest", ""]
 
     runs-on: ubuntu-latest
@@ -25,7 +25,7 @@ jobs:
           echo "COMPOSER_CACHE=$(composer config cache-dir)" >> $GITHUB_ENV
 
       - name: Composer Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ${{ env.COMPOSER_CACHE }}
@@ -36,26 +36,42 @@ jobs:
         run: |
           composer update --no-progress --no-interaction ${{ matrix.composer_args }} > /dev/null
 
-      - name: PHPCS
-        run: |
-          composer cs-check
-
       - name: Static analysis
         run: |
           composer check-deps
+          composer cs-check
           composer phpstan -- --no-progress
 
-      - name: Tests
+      - name: Infection coverage of changed lines
+        if: "!contains(github.event.pull_request.labels.*.name, 'skip-infection')"
         run: |
-          vendor/bin/phpunit --coverage-clover=coverage.xml --stop-on-failure
-          composer run --timeout=0 infection
+          git fetch origin $GITHUB_BASE_REF $GITHUB_HEAD_REF
+          vendor/bin/infection \
+            --git-diff-base=origin/$GITHUB_BASE_REF \
+            --git-diff-lines \
+            --logger-github \
+            --min-msi=100 \
+            --min-covered-msi=100 \
+            -jmax
+
+      - name: Save Infection result
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: infection-log-${{ matrix.php }}${{ matrix.composer_args }}.txt
+          path: infection-log.txt
+
+      - name: Tests
+        run: vendor/bin/phpunit --coverage-clover=coverage.xml --stop-on-failure
 
       - name: Monitor coverage
         if: github.event_name == 'pull_request'
         uses: slavcodev/coverage-monitor-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          clover_file: "coverage.xml"
-          comment_context: PHP ${{ matrix.php }}
+          coverage_path: "coverage.xml"
+          comment: false
+          comment_context: Coverage PHP ${{ matrix.php }}${{ matrix.composer_args }}
+          status_context: Coverage PHP ${{ matrix.php }}${{ matrix.composer_args }}
           threshold_alert: 100
           threshold_warning: 100

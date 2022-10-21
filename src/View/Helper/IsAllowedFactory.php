@@ -7,10 +7,14 @@ namespace Midnight\PermissionsModule\View\Helper;
 use Midnight\Permissions\PermissionServiceInterface;
 use Psr\Container\ContainerInterface;
 
+use function assert;
+
 class IsAllowedFactory
 {
     public function __invoke(ContainerInterface $container): IsAllowed
     {
-        return new IsAllowed($container->get(PermissionServiceInterface::class));
+        $service = $container->get(PermissionServiceInterface::class);
+        assert($service instanceof PermissionServiceInterface);
+        return new IsAllowed($service);
     }
 }
