@@ -11,7 +11,7 @@ All notable changes to this project will be documented in this file, in reverse 
 ### Changed
 
 - [#9](https://github.com/MidnightDesign/midnight-permissions-module/pull/9) removes `container-interop`.
-  Therefore, `^3.11` of
+  Therefore, a newer version of
   [`laminas/laminas-servicemanager`](https://github.com/laminas/laminas-servicemanager/releases/tag/3.11.0)
   is required.
 
@@ -27,7 +27,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
-## 1.3.0 - TBD
+## 1.3.0 - 2021-07-26
 
 ### Added
 
