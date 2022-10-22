@@ -13,6 +13,9 @@ use function gettype;
 use function is_object;
 use function sprintf;
 
+/**
+ * @extends AbstractPluginManager<PermissionInterface>
+ */
 class PermissionContainer extends AbstractPluginManager
 {
     /**

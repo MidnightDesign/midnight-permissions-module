@@ -26,6 +26,7 @@ class IsAllowedFactoryTest extends TestCase
     public function testGetInstanceFromContainer(): void
     {
         $container = $this->createContainer();
+        /** @phpstan-ignore-next-line https://github.com/laminas/laminas-servicemanager/issues/159 */
         $container->setFactory(IsAllowed::class, IsAllowedFactory::class);
 
         $service = $container->get(IsAllowed::class);
