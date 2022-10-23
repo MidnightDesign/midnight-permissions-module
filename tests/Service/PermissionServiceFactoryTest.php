@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MidnightTest\PermissionsModule\Service;
 
-use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\ServiceManager\ServiceManager;
 use Midnight\Permissions\PermissionService;
@@ -13,6 +12,7 @@ use Midnight\PermissionsModule\Service\PermissionServiceFactory;
 use MidnightTest\PermissionsModule\TestDouble\NoPermission;
 use MidnightTest\PermissionsModule\TestDouble\YesPermission;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 
 class PermissionServiceFactoryTest extends TestCase
 {
@@ -62,6 +62,7 @@ class PermissionServiceFactoryTest extends TestCase
             ]
         );
         $container->setService(PermissionContainer::class, $permissionContainer);
+        /** @phpstan-ignore-next-line https://github.com/laminas/laminas-servicemanager/issues/159 */
         $container->setFactory(PermissionService::class, PermissionServiceFactory::class);
         return $container;
     }
