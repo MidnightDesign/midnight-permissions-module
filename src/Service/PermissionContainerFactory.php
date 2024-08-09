@@ -14,11 +14,11 @@ class PermissionContainerFactory
     }
 
     /**
-     * @return array<string, mixed>
+     * @return array{}
      */
     private function config(ContainerInterface $container): array
     {
-        /** @var array<string, array<string, mixed>> $config */
+        /** @var array{permissions: array{}} $config */
         $config = $container->get('config');
         return $config['permissions'];
     }
