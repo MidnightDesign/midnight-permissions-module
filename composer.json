@@ -11,13 +11,13 @@
     },
     "require-dev": {
         "eventjet/coding-standard": "^3.9",
-        "infection/infection": "^0.26.6",
+        "infection/infection": "^0.27.11",
         "maglnet/composer-require-checker": "^3.8 || ^4.0",
         "ocramius/package-versions": "^2.1.1",
         "phpstan/extension-installer": "^1.2",
-        "phpstan/phpstan": "^1.8.10",
+        "phpstan/phpstan": "^1.11",
         "phpstan/phpstan-strict-rules": "^1.4.4",
-        "phpunit/phpunit": "^9.5.25"
+        "phpunit/phpunit": "^9.6"
     },
     "minimum-stability": "stable",
     "autoload": {
