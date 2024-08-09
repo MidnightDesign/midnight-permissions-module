@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace Midnight\PermissionsModule\Service;
 
-use Laminas\ServiceManager\ServiceManager;
 use Psr\Container\ContainerInterface;
 
-/**
- * @phpstan-import-type ServiceManagerConfiguration from ServiceManager
- */
 class PermissionContainerFactory
 {
     public function __invoke(ContainerInterface $container): PermissionContainer
@@ -18,11 +14,11 @@ class PermissionContainerFactory
     }
 
     /**
-     * @return ServiceManagerConfiguration
+     * @return array{}
      */
     private function config(ContainerInterface $container): array
     {
-        /** @var array{permissions: ServiceManagerConfiguration} $config */
+        /** @var array{permissions: array{}} $config */
         $config = $container->get('config');
         return $config['permissions'];
     }
