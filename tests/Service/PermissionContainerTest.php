@@ -42,7 +42,9 @@ class PermissionContainerTest extends TestCase
     public function testInvalidPermission(): void
     {
         $this->expectException(InvalidServiceException::class);
-        $this->expectExceptionMessage('Invalid permission. Expected an instance of Midnight\Permissions\PermissionInterface, got stdClass.');
+        $this->expectExceptionMessage(
+            'Invalid permission. Expected an instance of Midnight\Permissions\PermissionInterface, got stdClass.',
+        );
 
         $this->container->get(stdClass::class);
     }
