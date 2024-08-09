@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Midnight\PermissionsModule\Service;
 
-use Laminas\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\ServiceManager;
 use Psr\Container\ContainerInterface;
 
 /**
- * @phpstan-import-type ServiceManagerConfiguration from AbstractPluginManager
+ * @phpstan-import-type ServiceManagerConfiguration from ServiceManager
  */
 class PermissionContainerFactory
 {
